@@ -1,0 +1,9 @@
+.Pokegame {
+    display: flex;
+    flex-direction: column;
+} 
+
+.Pokegame-container {
+    display: flex;
+    flex-direction: row;
+}
