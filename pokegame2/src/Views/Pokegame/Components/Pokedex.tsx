@@ -2,9 +2,14 @@ import React from 'react';
 import './Pokedex.css';
 import Pokecard from './Pokecard';
 
+interface State {
+    totalXp: number, 
+    winner: boolean
+}
+
 class Pokedex extends React.Component {
     props: any;
-    state: { totalXp: number, winner: boolean }
+    state: State
 
     constructor(props: any) {
         super(props);
