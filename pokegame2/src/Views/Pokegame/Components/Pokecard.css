@@ -3,16 +3,35 @@
     flex-direction: column;
     padding: 10px;
     margin: 10px;
+    min-width: 125px;
     width: calc(50% - 40px);
-    background-color: silver;
-    border-radius: 10px;
+    border-radius: 3px;
     align-items: center;
+    box-shadow: 1px 2px 5px 0px #00000026;
 }
 
 .Pokecard h3 {
     color: blue;
 }
 
+.Pokecard-image {
+    background-color: silver;
+    width: 100%;
+}
+
 .Pokecard img {
     width: 100%;
+    transition: 500ms transform ease, 200ms filter ease;
+}
+
+.Pokecard img:hover {
+    transform: scale(1.25);
+    filter: drop-shadow(6px 6px 6px #000000);
+}
+
+@media screen and (max-width: 380px) {
+    .Pokecard {
+        width: calc(100% - 40px);
+    }
+
 }
