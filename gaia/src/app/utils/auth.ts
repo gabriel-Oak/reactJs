@@ -1,25 +1,19 @@
-const key = 'GAIXA_AUTH_KEY';
+import User from '../shared/interfaces/user.interface';
 
-interface User {
-    id: string,
-    name: string,
-    email: string,
-    admin: boolean,
-    password?: string
-}
+const key = 'GAIA_AUTH_KEY';
 
 export const isAuth = (): boolean => {
     return !!sessionStorage.getItem(key);
 }
 
 export const isAdmin = (): boolean => {
-    if (!isAuth()) throw 'Usuário não autenticado';
+    if (!isAuth()) throw new Error('Usuário não autenticado');
     const user = getUser();
-    return user.admin;
+    return !!user.admin;
 }
 
 export const setUser = (user: User): void => {
-    if (user.password) delete user.password;
+    if (user.senha) delete user.senha;
 
     sessionStorage.setItem(
         key,
@@ -30,7 +24,7 @@ export const setUser = (user: User): void => {
 export const getUser = (): User => {
     if (!isAuth()) {
         window.location.href = '/login'
-        throw 'Usuário não autenticado';
+        throw new Error('Usuário não autenticado');
     }
     const user: any = sessionStorage.getItem(key);
     return JSON.parse(user) as User;

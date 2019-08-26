@@ -1,7 +1,8 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom';
-import CommonRoutes from '../routes/common-routes';
+import { Switch, Redirect, Route } from 'react-router-dom';
+import CommonRoutesModule from '../routes/common-routes';
 import { isAuth } from '../utils/auth';
+import Login from '../views/login/Login';
 
 interface Props { }
 interface State { }
@@ -20,9 +21,10 @@ class RoutingModule extends React.Component {
 
     return (
       <Switch>
-        {
+        <Route path={`${publicUrl}/login`} component={Login} />
+        {          
           isAuth()
-          ? <CommonRoutes />
+          ? <CommonRoutesModule />
           : <Redirect to={{ pathname: `${publicUrl}/login` }} />          
         }
       </Switch>

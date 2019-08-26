@@ -1,11 +1,12 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import Login from '../views/login/Login';
+import { Route, Switch, RouteProps } from 'react-router-dom';
+import { commonRoutes, adminRoutes } from './routes';
+import { isAdmin } from '../utils/auth';
 
 interface Props { }
 interface State { }
 
-class CommonRoutes extends React.Component {
+class CommonRoutesModule extends React.Component {
   constructor(props: Props) {
     super(props)
 
@@ -15,14 +16,23 @@ class CommonRoutes extends React.Component {
   }
 
   render() {
-    const publicUrl = process.env.PUBLIC_URL;
-
     return (
       <Switch>
-        <Route exact={true} path={`${publicUrl}/login`} component={Login} />
-      </Switch>            
+        {
+          commonRoutes.map((r: RouteProps, index: number) => (
+            <Route key={index} {...r} />
+          ))
+        }
+        {
+          isAdmin()
+          &&
+          adminRoutes.map((r: RouteProps, index: number) => (
+            <Route key={index} {...r} />
+          ))
+        }
+      </Switch>
     );
   }
 }
 
-export default CommonRoutes
+export default CommonRoutesModule
