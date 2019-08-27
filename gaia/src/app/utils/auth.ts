@@ -29,3 +29,8 @@ export const getUser = (): User => {
     const user: any = sessionStorage.getItem(key);
     return JSON.parse(user) as User;
 }
+
+export const logOut = (): void => {
+    sessionStorage.removeItem(key);
+    window.location.href = process.env.PUBLIC_URL + '/home';
+}

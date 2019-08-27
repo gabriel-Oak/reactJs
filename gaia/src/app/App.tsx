@@ -1,17 +1,23 @@
 import React, { ReactNode } from 'react';
+import './App.css';
+import { theme } from './core/theme';
+
 import { Router } from 'react-router-dom';
 import RoutingModule from './routes/routing-module';
-import { syncHistoryWithStore } from 'mobx-react-router';
 import { createBrowserHistory } from 'history';
+
+import { observer, inject } from 'mobx-react';
+import { syncHistoryWithStore } from 'mobx-react-router';
+
 import { router } from './store/mobex';
+import AppStore from './App.store';
+
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { theme } from './core/theme';
-import Snackbar from '@material-ui/core/Snackbar';
+
 import { isAuth } from './utils/auth';
-import './App.css';
-import { observer, inject } from 'mobx-react';
-import AppStore from './App.store';
+import AppBarComponent from './components/AppBar/';
+import SimpleSnack from './components/SimpleSnack/';
 
 interface Props {
   appStore?: AppStore
@@ -26,7 +32,7 @@ interface State {
 
 @inject('appStore')
 @observer
-class App extends React.Component<Props> {
+class App extends React.Component<any> {
   state: State;
 
   constructor(props: Props) {
@@ -39,34 +45,9 @@ class App extends React.Component<Props> {
       }
     }
 
-    this.openSnack = this.openSnack.bind(this);
-    this.closeSnack = this.closeSnack.bind(this);
-    if (this.props.appStore && isAuth()){
+    if (isAuth()) {
       this.props.appStore.setMenus(true);
-      
     }
-    
-  }
-
-  openSnack(message: string) {
-    this.setState({
-      snacks: {
-        state: true,
-        message: message
-      }
-    });
-  }
-
-  closeSnack(event: any, reason: any) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({
-      snacks: {
-        state: false,
-      }
-    });
   }
 
   render(): ReactNode {
@@ -78,24 +59,16 @@ class App extends React.Component<Props> {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="Gaia">
-          { showMenu && 'Teste de menu'}
+          {
+            showMenu &&
+            <AppBarComponent />
+          }
           <Router history={history}>
             <RoutingModule />
           </Router>
         </div>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.props.appStore?false:false}
-          autoHideDuration={6000}
-          onClose={this.closeSnack}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span>{this.state.snacks.message}</span>}
-        />
+        
+        <SimpleSnack />
       </ThemeProvider>
     )
   }

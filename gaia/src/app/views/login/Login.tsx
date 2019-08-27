@@ -10,6 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 
 import AppStore from '../../App.store';
+import SnackStore from '../../components/SimpleSnack/snack.stores';
 
 import { setTitle } from '../../utils/titleService';
 import * as UserService from '../../api/user-service';
@@ -18,7 +19,8 @@ import './Login.css';
 import { observer, inject } from 'mobx-react';
 
 interface Props {
-  appStore: AppStore
+  appStore: AppStore,
+  snackStore: SnackStore
 }
 
 interface State {
@@ -35,7 +37,7 @@ interface State {
   }
 }
 
-@inject('appStore')
+@inject('appStore', 'snackStore')
 @observer
 class Login extends React.Component<Props> {
   state: State;
@@ -57,15 +59,11 @@ class Login extends React.Component<Props> {
       }
     }
 
+    if (isAuth()) this.redirect();
+
     setTitle('Login');
     this.inputChange = this.inputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.openSnack = this.openSnack.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  componentDidMount() {
-    if (isAuth()) this.logged();
   }
 
   inputChange(e: any): void {
@@ -87,28 +85,6 @@ class Login extends React.Component<Props> {
     window.location.href = process.env.PUBLIC_URL + '/home';
   }
 
-  openSnack(message: string) {
-    this.setState({
-      snacks: {
-        state: true,
-        message: message
-      }
-    });
-  }
-
-  handleClose(event: any, reason: any) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({
-      snacks: {
-        state: false,
-        fail: false
-      }
-    });
-  }
-
   handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
@@ -124,10 +100,11 @@ class Login extends React.Component<Props> {
       .then((res: any) => {
 
         setUser(res.data);
-        this.openSnack(`Bem vindo ${res.data.nome}`);
+        this.props.snackStore.openSnack(`Bem vindo ${res.data.nome}`);
         this.logged();
+
       })
-      .catch(e => this.openSnack('Algo deu errado :/'))
+      .catch(e => this.props.snackStore.openSnack('Algo deu errado :/'))
       .finally(() => {
         this.setState({
           loading: false
@@ -197,20 +174,6 @@ class Login extends React.Component<Props> {
 
           </Card>
         </div>
-
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.snacks.state}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span>{this.state.snacks.message}</span>}
-        />
       </div>
     )
   }

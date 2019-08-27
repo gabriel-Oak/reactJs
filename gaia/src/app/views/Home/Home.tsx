@@ -1,15 +1,26 @@
 import React from 'react'
 
-interface Props {}
-interface State {}
+import { observer, inject } from 'mobx-react';
+import AppStore from '../../App.store';
 
-class Home extends React.Component {
+import { setTitle } from '../../utils/titleService';
+
+interface Props {
+    appStore: AppStore
+}
+interface State {}
+@inject('appStore')
+@observer
+class Home extends React.Component<Props> {
     constructor(props: Props) {
         super(props)
 
         this.state = {
             
         }
+
+        this.props.appStore.setTitle('Home');
+        setTitle('Home');
     }
 
     render() {
