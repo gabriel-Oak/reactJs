@@ -7,13 +7,20 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Snackbar from '@material-ui/core/Snackbar';
+
+import AppStore from '../../App.store';
 
 import { setTitle } from '../../utils/titleService';
 import * as UserService from '../../api/user-service';
-import { setUser } from '../../utils/auth';
+import { setUser, isAuth } from '../../utils/auth';
 import './Login.css';
+import { observer, inject } from 'mobx-react';
 
-interface Props { }
+interface Props {
+  appStore: AppStore
+}
+
 interface State {
   user: string,
   senha: string
@@ -22,9 +29,15 @@ interface State {
     senha: boolean
   }
   loading: boolean
+  snacks: {
+    state: boolean,
+    message: string
+  }
 }
 
-class Login extends React.Component {
+@inject('appStore')
+@observer
+class Login extends React.Component<Props> {
   state: State;
 
   constructor(props: Props) {
@@ -37,12 +50,22 @@ class Login extends React.Component {
         user: false,
         senha: false,
       },
-      loading: false
+      loading: false,
+      snacks: {
+        state: false,
+        message: ''
+      }
     }
 
     setTitle('Login');
     this.inputChange = this.inputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.openSnack = this.openSnack.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  componentDidMount() {
+    if (isAuth()) this.logged();
   }
 
   inputChange(e: any): void {
@@ -60,28 +83,51 @@ class Login extends React.Component {
   }
 
   redirect(): void {
+    this.props.appStore.setMenus(true);
+    window.location.href = process.env.PUBLIC_URL + '/home';
+  }
 
+  openSnack(message: string) {
+    this.setState({
+      snacks: {
+        state: true,
+        message: message
+      }
+    });
+  }
+
+  handleClose(event: any, reason: any) {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({
+      snacks: {
+        state: false,
+        fail: false
+      }
+    });
   }
 
   handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    
+
     this.setState({
       loading: true
     });
-    
+
     UserService
       .login({
         user: this.state.user,
         senha: this.state.senha
       })
-      .then( (res: any) => {
+      .then((res: any) => {
 
         setUser(res.data);
-        this.redirect();
-
+        this.openSnack(`Bem vindo ${res.data.nome}`);
+        this.logged();
       })
-      .catch(e => console.log(e))
+      .catch(e => this.openSnack('Algo deu errado :/'))
       .finally(() => {
         this.setState({
           loading: false
@@ -89,60 +135,82 @@ class Login extends React.Component {
       });
   }
 
+  logged() {    
+    setTimeout(() => {
+      this.redirect();
+    }, 2000);
+  }
+
   render() {
     return (
-      <div className="Login Center-container s600">
-        <Card>
+      <div>
+        <div className="Login Center-container s600">
+          <Card>
 
-          <CardHeader title="Login" />
+            <CardHeader title="Login" />
 
-          <form onSubmit={this.handleSubmit}>
-            <CardContent className="Login-form">
+            <form onSubmit={this.handleSubmit}>
+              <CardContent className="Login-form">
 
-              <TextField
-                required
-                label="Usuário"
-                className="Login-form-field"
-                name="user"
-                margin="normal"
-                variant="outlined"
-                autoComplete="off"
-                onBlur={this.inputChange}
-                onInput={this.inputChange}
-                value={this.state.user}
-                error={this.getErrors('user')}
-              />
+                <TextField
+                  required
+                  label="Usuário"
+                  className="Login-form-field"
+                  name="user"
+                  margin="normal"
+                  variant="outlined"
+                  autoComplete="off"
+                  onBlur={this.inputChange}
+                  onInput={this.inputChange}
+                  value={this.state.user}
+                  error={this.getErrors('user')}
+                />
 
-              <TextField
-                required
-                label="Senha"
-                className="Login-form-field"
-                name="senha"
-                margin="normal"
-                variant="outlined"
-                type="password"
-                autoComplete="off"
-                onBlur={this.inputChange}
-                onInput={this.inputChange}
-                value={this.state.senha}
-                error={this.getErrors('senha')}
-              />
+                <TextField
+                  required
+                  label="Senha"
+                  className="Login-form-field"
+                  name="senha"
+                  margin="normal"
+                  variant="outlined"
+                  type="password"
+                  autoComplete="off"
+                  onBlur={this.inputChange}
+                  onInput={this.inputChange}
+                  value={this.state.senha}
+                  error={this.getErrors('senha')}
+                />
 
 
-            </CardContent>
-            <CardActions className="button-container">
-              <Button 
-                color="primary" 
-                variant="contained"
-                type="submit"
-                disabled={this.state.loading}
-              >
-                {this.state.loading ? <CircularProgress size={24} /> : 'Entrar'}
-              </Button>
-            </CardActions>
-          </form>
+              </CardContent>
+              <CardActions className="button-container">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  disabled={this.state.loading}
+                >
+                  {this.state.loading ? <CircularProgress size={24} /> : 'Entrar'}
+                </Button>
+              </CardActions>
+            </form>
 
-        </Card>
+          </Card>
+        </div>
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.snacks.state}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span>{this.state.snacks.message}</span>}
+        />
       </div>
     )
   }
