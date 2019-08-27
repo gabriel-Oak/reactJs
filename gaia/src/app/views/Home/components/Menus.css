@@ -1,0 +1,8 @@
+.Home-Menus-ListItem {
+    display: flex!important;
+    justify-content: space-between!important;
+}
+
+.Home-Menus-ListItem:nth-child(odd) {
+    background-color: rgb(95, 95, 95) !important;
+}

@@ -4,6 +4,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import { observer, inject } from 'mobx-react';
 
+import './snack.css';
+
 interface State { }
 
 @inject('snackStore')

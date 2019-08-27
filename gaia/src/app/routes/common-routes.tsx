@@ -1,10 +1,11 @@
 import React from 'react';
+
 import { Route, Switch, RouteProps } from 'react-router-dom';
 import { commonRoutes, adminRoutes } from './routes';
+import NotFound from '../views/not-found/not-found';
 import { isAdmin } from '../utils/auth';
 
 interface Props { }
-interface State { }
 
 class CommonRoutesModule extends React.Component {
   constructor(props: Props) {
@@ -16,6 +17,8 @@ class CommonRoutesModule extends React.Component {
   }
 
   render() {
+    const publicUrl = process.env.PUBLIC_URL;
+
     return (
       <Switch>
         {
@@ -30,6 +33,7 @@ class CommonRoutesModule extends React.Component {
             <Route key={index} {...r} />
           ))
         }
+        <Route path={`${publicUrl}/**`} component={NotFound} />
       </Switch>
     );
   }

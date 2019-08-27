@@ -1,7 +1,6 @@
-import React, { PureComponent, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 interface Props {}
-interface State {}
 
 class NotFound extends React.Component {
     constructor(props: Props) {

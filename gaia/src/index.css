@@ -25,13 +25,21 @@
   width: 100%;
 }
 
-.Center-container {
+.Center-container, .Center-container-Vertical {
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translate(-50%, -20%);
 }
+.Center-container-Vertical {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .button-container {
   justify-content: flex-end;
+}
+
+.paper {
+  background-color: rgb(87, 87, 87)!important;
 }

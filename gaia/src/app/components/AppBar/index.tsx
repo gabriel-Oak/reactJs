@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { observer, inject } from 'mobx-react';
 
 import { logOut } from '../../utils/auth';
+import './appBar.css';
 
 interface State { }
 
@@ -36,7 +37,7 @@ class AppBarComponent extends React.Component<any, State> {
               menu
             </i>
           </IconButton>
-          <Typography className="App-title" variant="h6">
+          <Typography className="AppBar-title" variant="h6">
             {this.props.appStore.getTitle}
           </Typography>
           <Button color="inherit" onClick={this.logOut}>

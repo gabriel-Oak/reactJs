@@ -1,5 +1,6 @@
 const base = 'http://gaia-smn.herokuapp.com';
 
 export const api = {
-    user: `${base}/usuario/`
+    user: `${base}/usuario/`,
+    cardapio: `${base}/cardapio/`
 }
