@@ -11,7 +11,7 @@ import { observer, inject } from 'mobx-react';
 import { logOut } from '../../utils/auth';
 import './appBar.css';
 
-interface State { }
+interface State {}
 
 @inject('appStore')
 @observer
@@ -30,9 +30,14 @@ class AppBarComponent extends React.Component<any, State> {
 
   render(): ReactNode {
     return (
-      <AppBar position="static" color="primary">
+      <AppBar position="fixed" color="primary" className="AppBarComponent">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton 
+            edge="start" 
+            color="inherit" 
+            aria-label="menu"
+            onClick={this.props.toggleDrawer}
+          >
             <i className="material-icons">
               menu
             </i>

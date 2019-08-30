@@ -13,8 +13,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { setTitle } from '../../utils/titleService';
-import { getMenus } from '../../api/cardapio-service';
-import { getTrocasUser, postChange, putChange } from '../../api/troca-service';
+import { getMenus } from '../../core/api/cardapio-service';
+import { getTrocasUser, postChange, putChange } from '../../core/api/troca-service';
 import Cardapio from '../../shared/interfaces/menu.interface';
 import Menus from './components/Menus';
 import Loading from './components/Loading';
@@ -22,16 +22,19 @@ import { getUser } from '../../utils/auth';
 
 import './Home.css';
 import User from '../../shared/interfaces/user.interface';
+import Troca from '../../shared/interfaces/troca.interface';
+import SnackStore from '../../components/SimpleSnack/snack.stores';
 
 interface Props {
-  appStore: AppStore
+  appStore: AppStore,
+  snackStore: SnackStore
 }
 interface State {
   menus: Array<Cardapio>,
   confirmAction: boolean,
   loading: boolean
 }
-@inject('appStore')
+@inject('appStore', 'snackStore')
 @observer
 class Home extends React.Component<Props, State> {
 
@@ -68,6 +71,33 @@ class Home extends React.Component<Props, State> {
     });
   }
 
+  getTrocas() {
+    getTrocasUser(this.user._id)
+      .then((res: {data:[Troca]}) => {
+          this.setOptions(res.data);
+        })
+      .catch(e => {
+        console.log(e);
+      })
+      .finally(() => {
+        this.setState({
+          loading: false
+        });
+      });
+  }
+
+  setOptions(trocas: Array<Troca>) {
+    const menus = this.state.menus;
+    trocas.forEach(troca => {
+      menus.forEach(menu => {
+        if (menu._id === troca.cardapio)
+          menu.chosed = troca.pratoPrincipal;
+      });
+    });
+    
+    this.setState({menus: menus});
+  }
+
   getMenus() {
     getMenus()
       .then(res => {
@@ -75,6 +105,7 @@ class Home extends React.Component<Props, State> {
         this.setState({
           menus: menus
         });
+        this.getTrocas();
       })
       .catch(e => {
         console.log(e);
@@ -115,11 +146,11 @@ class Home extends React.Component<Props, State> {
       })
   }
 
-  verifyTrocas(trocas: Array<any>) {
+  verifyTrocas(trocas: Array<Troca>) {
     
     const promises = this.state.menus.map(menu => {
       let trocaId;
-      trocas.forEach((troca: any) => {
+      trocas.forEach(troca => {
         if (troca.cardapio === menu._id) {
           trocaId = troca._id;
         } 
@@ -134,12 +165,8 @@ class Home extends React.Component<Props, State> {
 
       if(trocaId) {
         return putChange(request)
-        .then()
-        .catch()
       } else {
         return postChange(request)
-        .then()
-        .catch()
       }
     });
 
@@ -148,8 +175,12 @@ class Home extends React.Component<Props, State> {
   
   async submitRequest(promises: Array<Promise<any>>) {
     await Promise.all(promises)
-    .then()
-    .catch()
+    .then(
+      res => this.props.snackStore.openSnack('Sucesso au atualizar todos os dias')
+    )
+    .catch(
+      e => this.props.snackStore.openSnack('Ocorreu algum erro: ' + e)
+    )
     .finally(() => {
       this.setState({ loading: false });
     });

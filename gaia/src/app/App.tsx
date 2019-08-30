@@ -12,8 +12,9 @@ import { syncHistoryWithStore } from 'mobx-react-router';
 import { router } from './store/mobex';
 import AppStore from './App.store';
 
-import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import SwipeableDrawer from '@material-ui/core/Drawer';
+import { ThemeProvider } from '@material-ui/styles';
 
 import { isAuth } from './utils/auth';
 import AppBarComponent from './components/AppBar/';
@@ -24,10 +25,7 @@ interface Props {
 }
 
 interface State {
-  snacks: {
-    state: boolean,
-    message: string
-  }
+  menu: boolean
 }
 
 @inject('appStore')
@@ -39,15 +37,17 @@ class App extends React.Component<any> {
     super(props)
 
     this.state = {
-      snacks: {
-        state: false,
-        message: ''
-      }
+      menu: false
     }
 
     if (isAuth()) {
       this.props.appStore.setMenus(true);
     }
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
+
+  toggleDrawer() {
+    this.setState({menu: !this.state.menu});
   }
 
   render(): ReactNode {
@@ -61,13 +61,16 @@ class App extends React.Component<any> {
         <div className="Gaia">
           {
             showMenu &&
-            <AppBarComponent />
+            <AppBarComponent toggleDrawer={this.toggleDrawer} />
           }
+          <SwipeableDrawer open={this.state.menu} onClose={this.toggleDrawer}>
+            tes teste tes teste tes tes
+          </SwipeableDrawer>
           <Router history={history}>
             <RoutingModule />
           </Router>
         </div>
-        
+
         <SimpleSnack />
       </ThemeProvider>
     )

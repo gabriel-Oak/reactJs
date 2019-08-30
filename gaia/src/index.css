@@ -43,3 +43,11 @@
 .paper {
   background-color: rgb(87, 87, 87)!important;
 }
+
+@media screen and (max-width: 600px) {
+  .Center-container-Vertical {
+    top: 62px;
+    transform: translate(-50%, 0);
+  }
+  
+}

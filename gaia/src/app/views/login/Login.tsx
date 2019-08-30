@@ -12,7 +12,7 @@ import AppStore from '../../App.store';
 import SnackStore from '../../components/SimpleSnack/snack.stores';
 
 import { setTitle } from '../../utils/titleService';
-import * as UserService from '../../api/user-service';
+import * as UserService from '../../core/api/user-service';
 import { setUser, isAuth } from '../../utils/auth';
 import './Login.css';
 import { observer, inject } from 'mobx-react';
