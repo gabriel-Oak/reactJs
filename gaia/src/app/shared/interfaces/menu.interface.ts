@@ -1,4 +1,4 @@
-interface Menu {
+interface Cardapio {
     data: string,
     guarnicao1: string,
     guarnicao2: string,
@@ -9,7 +9,7 @@ interface Menu {
     sobremesa: string,
     __v?: number,
     _id: string,
-    chosed: 'string'
+    chosed: string
 }
 
-export default Menu;
+export default Cardapio;

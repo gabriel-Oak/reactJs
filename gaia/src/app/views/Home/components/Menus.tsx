@@ -2,21 +2,19 @@ import React, { ReactNode } from 'react'
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import Menu from '../../../shared/interfaces/menu.interface';
+import Cardapio from '../../../shared/interfaces/menu.interface';
 import './Menus.css';
 
 interface Props {
-  menuData: Array<Menu>,
+  menuData: Array<Cardapio>,
   handleChange: any
 }
 interface State {
@@ -47,8 +45,9 @@ class Menus extends React.Component<Props, State> {
 
   render(): ReactNode {
     const { menuData } = this.props;
+    
     return (
-      <AppBar position="static" color="default">
+      <div>
         <Tabs
           value={this.state.tabIndex}
           onChange={this.handleTabChange}
@@ -68,25 +67,24 @@ class Menus extends React.Component<Props, State> {
 
         {
           menuData.map(
-            (menu: Menu, key) => key < 6 &&
+            (menu: Cardapio, key) => key < 6 &&
               <Card hidden={this.state.tabIndex !== key} key={key} className="paper">
                 <CardContent>
                   <List>
                     <ListItem className="Home-Menus-ListItem">
                       <span>Prato Principal</span>
                       <FormControl>
-                        <InputLabel htmlFor="age-simple">Age</InputLabel>
                         <Select
-                          value={menu.chosed}
+                          value={menu.chosed ? menu.chosed : menu.pratoPrincipal}
                           onChange={this.props.handleChange}
                           inputProps={{
-                            name: 'age',
-                            id: 'age-simple',
+                            name: String(key),
+                            className: 'Home-Menus-Chose'
                           }}
                         >
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          <MenuItem value={menu.pratoPrincipal}>{menu.pratoPrincipal}</MenuItem>
+                          <MenuItem value={menu.opcao1}>{menu.opcao1}</MenuItem>
+                          <MenuItem value={menu.opcao2}>{menu.opcao2}</MenuItem>
                         </Select>
                       </FormControl>
                     </ListItem>
@@ -111,7 +109,7 @@ class Menus extends React.Component<Props, State> {
               </Card>
           )
         }
-      </AppBar>
+      </div>
     );
   }
 }

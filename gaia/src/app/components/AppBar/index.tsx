@@ -30,7 +30,7 @@ class AppBarComponent extends React.Component<any, State> {
 
   render(): ReactNode {
     return (
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
             <i className="material-icons">

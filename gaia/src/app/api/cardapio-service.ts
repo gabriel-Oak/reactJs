@@ -5,6 +5,11 @@ const getMenus = () => {
     return axios.get(`${api.cardapio}`);
 }
 
+const setMenus = () => {
+    return axios.get(`${api.cardapio}`);
+}
+
 export {
-    getMenus
+    getMenus,
+    setMenus
 }
