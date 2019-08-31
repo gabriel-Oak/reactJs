@@ -19,6 +19,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import { isAuth } from './utils/auth';
 import AppBarComponent from './components/AppBar/';
 import SimpleSnack from './components/SimpleSnack/';
+import SideNav from './components/sideNav/';
 
 interface Props {
   appStore?: AppStore
@@ -64,7 +65,7 @@ class App extends React.Component<any> {
             <AppBarComponent toggleDrawer={this.toggleDrawer} />
           }
           <SwipeableDrawer open={this.state.menu} onClose={this.toggleDrawer}>
-            tes teste tes teste tes tes
+            <SideNav />
           </SwipeableDrawer>
           <Router history={history}>
             <RoutingModule />
