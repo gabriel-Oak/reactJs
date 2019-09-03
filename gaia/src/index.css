@@ -25,15 +25,14 @@
   width: 100%;
 }
 
-.Center-container, .Center-container-Vertical {
+.Center-container {
   position: absolute;
-  top: 20%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -50%);
 }
 .Center-container-Vertical {
-  top: 50%;
-  transform: translate(-50%, -50%);
+  margin: 82px auto 10px auto;
 }
 
 .button-container {
