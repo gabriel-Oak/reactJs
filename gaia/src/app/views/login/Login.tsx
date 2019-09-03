@@ -119,11 +119,11 @@ class Login extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className="Login-deep">
         <div className="Login Center-container s600">
           <Card>
 
-            <CardHeader title="Login" />
+            <CardHeader title="GAIA - SMN" />
 
             <form onSubmit={this.handleSubmit}>
               <CardContent className="Login-form">
@@ -172,6 +172,9 @@ class Login extends React.Component<Props> {
             </form>
 
           </Card>
+        </div>
+        <div className="Login-banner">
+          <video src="banner.mp4" autoPlay muted loop></video>
         </div>
       </div>
     )
