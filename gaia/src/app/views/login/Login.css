@@ -17,3 +17,9 @@
     object-fit: cover;
     opacity: .2;
 }
+
+@media screen and (max-width: 1446px) {
+    .Login-banner video {
+        height: 100vh;
+    }
+}
