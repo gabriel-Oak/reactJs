@@ -1,4 +1,9 @@
-.AppBarComponent{
+.AppBarComponent {
   z-index: 1;
 }
 
+.MuiDrawer-paperAnchorLeft {
+  width: 100%;
+  max-width: 320px;
+  padding: 4px 16px;
+}

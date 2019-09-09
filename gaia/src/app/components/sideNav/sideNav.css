@@ -1,0 +1,19 @@
+.App-SideNav-back {
+    transition: 300ms transform cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+    float: right;
+}
+
+.menuClose {
+    transform: rotate(180deg);
+}
+
+.MuiTreeItem-label {
+    line-height: 40px !important;
+    padding: 0 6px !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

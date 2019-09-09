@@ -64,8 +64,8 @@ class App extends React.Component<any> {
             showMenu &&
             <AppBarComponent toggleDrawer={this.toggleDrawer} />
           }
-          <SwipeableDrawer open={this.state.menu} onClose={this.toggleDrawer}>
-            <SideNav />
+          <SwipeableDrawer open={this.state.menu} onClose={this.toggleDrawer} className="Gaia-drawer">
+            <SideNav toggleDrawer={this.toggleDrawer} drawerState={this.state.menu}/>
           </SwipeableDrawer>
           <Router history={history}>
             <RoutingModule />
