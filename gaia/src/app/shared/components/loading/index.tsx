@@ -6,7 +6,7 @@ import './Loading.css';
 
 interface Props { }
 
-class NotFound extends React.Component<Props> {
+class Loading extends React.Component<Props> {
   constructor(props: Props) {
     super(props)
 
@@ -17,11 +17,11 @@ class NotFound extends React.Component<Props> {
 
   render(): ReactNode {
     return (
-      <div className="Home-loading-card">
-        <CircularProgress className="Home-loading" size={100} />
+      <div className="Loading-card">
+        <CircularProgress className="Loading" size={100} />
       </div>
     )
   }
 }
 
-export default NotFound
+export default Loading

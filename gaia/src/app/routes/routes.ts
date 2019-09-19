@@ -1,4 +1,5 @@
 import { RouteProps } from 'react-router-dom';
+import Cardapios from '../views/cardapio/Cardapios';
 import Home from '../views/Home/Home';
 import Login from '../views/login/Login';
 
@@ -10,5 +11,5 @@ export const commonRoutes: RouteProps[] = [
 ];
 
 export const adminRoutes: RouteProps[] = [
-    { path: `${publicUrl}/cardapio`, component: Home, exact: true }
+    { path: `${publicUrl}/cardapios`, component: Cardapios, exact: true }
 ];

@@ -46,6 +46,7 @@ class SideNav extends React.Component<Props, State> {
                     defaultCollapseIcon={<ExpandMoreIcon />}
                     defaultExpandIcon={<ChevronRightIcon />}
                 >
+                    <TreeItem nodeId="0" label="Home" onClick={() => this.navigateTo('home')} />
                     <TreeItem nodeId="1" label="Administrativo">
                         <TreeItem nodeId="2" label="Alterar cardapio" onClick={() => this.navigateTo('cardapios')} />
                         <TreeItem nodeId="3" label="Cadastro de usuário" onClick={() => this.navigateTo('usuario')} />
@@ -53,7 +54,6 @@ class SideNav extends React.Component<Props, State> {
                         <TreeItem nodeId="5" label="Sugestões e bugs" onClick={() => this.navigateTo('feedbacks')} />
                     </TreeItem>
                     <TreeItem nodeId="6" label="Opções">
-                        <TreeItem nodeId="6" label="Home" onClick={() => this.navigateTo('home')} />
                         <TreeItem nodeId="7" label="Reportar bug/sugestão" onClick={() => this.navigateTo('feedbacks')} />
                         <TreeItem nodeId="8" label="Sugestões e bugs" />
                     </TreeItem>

@@ -1,7 +1,5 @@
 import React, { ReactNode } from 'react'
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import CardContent from '@material-ui/core/CardContent';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
@@ -11,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import Cardapio from '../../../shared/interfaces/menu.interface';
+import WeekTabs from '../../../shared/components/weekTabs/';
+
 import './Menus.css';
 
 interface Props {
@@ -45,25 +45,13 @@ class Menus extends React.Component<Props, State> {
 
   render(): ReactNode {
     const { menuData } = this.props;
-    
+
     return (
       <div>
-        <Tabs
-          value={this.state.tabIndex}
-          onChange={this.handleTabChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
-          {
-            this.days.map(
-              (day, key) => key > 0 && key < 6 && <Tab label={day} key={key} />
-            )
-          }
-
-        </Tabs>
+        <WeekTabs
+          handleTabChange={this.handleTabChange}
+          tabIndex={this.state.tabIndex}
+        />
 
         {
           menuData.map(

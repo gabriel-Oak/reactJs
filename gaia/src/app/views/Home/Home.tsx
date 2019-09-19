@@ -16,7 +16,7 @@ import { getMenus } from '../../core/api/cardapio-service';
 import { getTrocasUser, postChange, putChange } from '../../core/api/troca-service';
 import Cardapio from '../../shared/interfaces/menu.interface';
 import Menus from './components/Menus';
-import Loading from './components/Loading';
+import Loading from '../../shared/components/loading/';
 import { getUser } from '../../utils/auth';
 
 import './Home.css';
@@ -199,7 +199,8 @@ class Home extends React.Component<Props, State> {
             {
               this.state.menus.length 
               ? <Menus menuData={this.state.menus} handleChange={this.handleMenu} />
-              : this.state.loading && <Loading />
+              : this.state.loading 
+              ? <Loading /> : <h1> Algum erro aconteceu ao buscar os cardapios </h1> 
             }
           </CardContent>
 

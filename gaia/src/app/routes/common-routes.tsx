@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Route, Switch, RouteProps } from 'react-router-dom';
-import { commonRoutes, adminRoutes } from './routes';
+import { commonRoutes } from './routes';
 import NotFound from '../views/not-found/not-found';
-import { isAdmin } from '../utils/auth';
+import AdminRoutes from './admin-routes';
 
 interface Props { }
 
@@ -26,13 +26,8 @@ class CommonRoutesModule extends React.Component {
             <Route key={index} {...r} />
           ))
         }
-        {
-          isAdmin()
-          &&
-          adminRoutes.map((r: RouteProps, index: number) => (
-            <Route key={index} {...r} />
-          ))
-        }
+        
+        <AdminRoutes />
         <Route path={`${publicUrl}/**`} component={NotFound} />
       </Switch>
     );
