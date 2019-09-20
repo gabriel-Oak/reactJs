@@ -34,6 +34,8 @@ class Menus extends React.Component<Props, State> {
   inputChange(e: any): void {
     const menus = this.props.menus;
     menus[this.state.tabIndex][e.target.name] = e.target.value;
+    console.log(e.target.value);
+    
     this.props.inputChange(menus);
   }
 
