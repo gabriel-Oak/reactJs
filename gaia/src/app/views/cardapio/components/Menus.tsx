@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react'
 
+import CardContent from '@material-ui/core/CardContent';
+
 import WeekTabs from '../../../shared/components/weekTabs/';
-import Menu from './Menu';
+import MenuItens from './Menu';
 
 interface Props {
   menus: Array<any>;
@@ -35,7 +37,7 @@ class Menus extends React.Component<Props, State> {
     const menus = this.props.menus;
     menus[this.state.tabIndex][e.target.name] = e.target.value;
     console.log(e.target.value);
-    
+
     this.props.inputChange(menus);
   }
 
@@ -44,15 +46,16 @@ class Menus extends React.Component<Props, State> {
 
     return (
       <>
-        <WeekTabs
-          handleTabChange={this.handleTabChange}
-          tabIndex={this.state.tabIndex}
-        />
-
+        <CardContent>
+          <WeekTabs
+            handleTabChange={this.handleTabChange}
+            tabIndex={this.state.tabIndex}
+          />
+        </CardContent>
         {
           menus.map(
             (menu, key) => key < 6 &&
-              <Menu
+              <MenuItens
                 hidden={this.state.tabIndex !== key}
                 menu={menu}
                 key={key}
