@@ -4,8 +4,10 @@ import CardContent from '@material-ui/core/CardContent';
 
 import WeekTabs from '../../../shared/components/weekTabs/';
 import MenuItens from './Menu';
+import SnackStore from '../../../components/SimpleSnack/snack.stores';
 
 interface Props {
+  snackStore: SnackStore;
   menus: Array<any>;
   inputChange: any;
 }
@@ -36,8 +38,6 @@ class Menus extends React.Component<Props, State> {
   inputChange(e: any): void {
     const menus = this.props.menus;
     menus[this.state.tabIndex][e.target.name] = e.target.value;
-    console.log(e.target.value);
-
     this.props.inputChange(menus);
   }
 
@@ -58,8 +58,10 @@ class Menus extends React.Component<Props, State> {
               <MenuItens
                 hidden={this.state.tabIndex !== key}
                 menu={menu}
+                day={key+1}
                 key={key}
                 inputChange={this.inputChange}
+                snackStore={this.props.snackStore}
               />
           )
         }

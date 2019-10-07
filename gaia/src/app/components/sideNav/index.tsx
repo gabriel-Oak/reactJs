@@ -55,7 +55,6 @@ class SideNav extends React.Component<Props, State> {
                     </TreeItem>
                     <TreeItem nodeId="6" label="Opções">
                         <TreeItem nodeId="7" label="Reportar bug/sugestão" onClick={() => this.navigateTo('feedbacks')} />
-                        <TreeItem nodeId="8" label="Sugestões e bugs" />
                     </TreeItem>
                 </TreeView>
             </div>

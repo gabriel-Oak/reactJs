@@ -32,6 +32,7 @@ class Index extends React.Component<any, State> {
 
     return (
       <Snackbar
+        className={this.props.snackStore.getClass}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',

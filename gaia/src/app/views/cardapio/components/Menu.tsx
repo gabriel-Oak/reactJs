@@ -2,6 +2,8 @@ import React, { ReactNode, FormEvent } from 'react'
 
 import DateFnsUtils from '@date-io/date-fns';
 
+import { setMenus } from '../../../core/api/cardapio-service';
+
 import Button from '@material-ui/core/Button';
 import {
   MuiPickersUtilsProvider,
@@ -15,11 +17,14 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import './Menu.css';
+import SnackStore from '../../../components/SimpleSnack/snack.stores';
 
 interface Props {
+  snackStore: SnackStore;
   inputChange: any;
   menu: any;
   hidden: boolean;
+  day: number;
 }
 interface State {
   confirmAction: boolean,
@@ -71,9 +76,7 @@ class MenuItens extends React.Component<Props, State> {
         ...this.state.touch,
         [field]: true
       }
-    })
-    console.log(this.state);
-
+    });
   }
 
   getErrors(field: string): boolean {
@@ -82,6 +85,9 @@ class MenuItens extends React.Component<Props, State> {
 
   handleDateChange(date: Date | null) {
     this.setTouch('data');
+
+    if (date)
+      date = date.getDay() === this.props.day ? date : null;
 
     this.props.inputChange({
       target: {
@@ -95,7 +101,24 @@ class MenuItens extends React.Component<Props, State> {
     this.setState({
       confirmAction: false
     })
-    // e.target.innerText === 'Sim' && 'faça algo';
+    if (e.target.innerText === 'Sim')
+      this.alterMenu();
+  }
+
+  alterMenu() {
+    this.setState({loading: true});
+    setMenus(this.props.menu)
+      .then(
+        () => this.props.snackStore
+          .openSnack('Cardapio alterado com sucesso', 'success')
+      )
+      .catch(
+        () => this.props.snackStore
+          .openSnack('Ocorreu algum erro com a operação', 'error')
+      )
+      .finally(
+        () => this.setState({loading: false})
+      );
   }
 
   submitChange(e: FormEvent<HTMLFormElement>) {
@@ -208,10 +231,16 @@ class MenuItens extends React.Component<Props, State> {
                 format="dd/MM/yyyy"
                 margin="normal"
                 name="data"
+                required
                 label="Data"
                 value={this.props.menu.data}
                 className="Cardapio-form-field"
                 onChange={this.handleDateChange}
+                error={this.getErrors('data')}
+                helperText={
+                  this.getErrors('data')
+                  && 'Preencha uma data correta!'
+                }
                 KeyboardButtonProps={{
                   'aria-label': 'change date',
                 }}
@@ -236,7 +265,7 @@ class MenuItens extends React.Component<Props, State> {
               open={this.state.confirmAction}
               onClose={this.handleAction}
             >
-              <h4 className="Home-confirm-title">Salvar cardapios?</h4>
+              <h4 className="Home-confirm-title">Salvar cardapio?</h4>
               <MenuItem onClick={this.handleAction}>Sim</MenuItem>
               <MenuItem onClick={this.handleAction}>Não</MenuItem>
             </Menu>

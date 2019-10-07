@@ -14,12 +14,17 @@ import { getMenus } from '../../core/api/cardapio-service';
 import { setTitle } from '../../utils/titleService';
 import SnackStore from '../../components/SimpleSnack/snack.stores';
 
-interface Props { }
+interface Props { 
+  appStore: AppStore;
+  snackStore: SnackStore;
+}
 interface State {
-  loading: boolean,
-  menus: Array<Cardapio>
+  loading: boolean;
+  menus: Array<Cardapio>;
 }
 
+@inject('appStore', 'snackStore')
+@observer
 class Cardapios extends React.Component<Props, State> {
   state: State;
 
@@ -32,7 +37,8 @@ class Cardapios extends React.Component<Props, State> {
     }
 
     this.getMenus();
-
+    setTitle('Alterar cardapios');
+    this.props.appStore.setTitle('Alterar cardapios');
     this.inputChange = this.inputChange.bind(this);
   }
 
@@ -63,8 +69,6 @@ class Cardapios extends React.Component<Props, State> {
   }
 
   inputChange(menus: Array<Cardapio>): void {
-    console.log(menus);
-
     this.setState({
       menus: menus
     });
@@ -77,7 +81,11 @@ class Cardapios extends React.Component<Props, State> {
         <Card>
           {
             this.state.menus.length
-              ? <Menus menus={this.state.menus} inputChange={this.inputChange} />
+              ? <Menus 
+                  menus={this.state.menus} 
+                  inputChange={this.inputChange}
+                  snackStore={this.props.snackStore}
+                />
               : this.state.loading
                 ? <Loading /> : <h1>Erro ao buscar cardapios :/</h1>
           }

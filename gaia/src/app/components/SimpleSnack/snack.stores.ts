@@ -3,11 +3,16 @@ import { observable, computed, action } from "mobx";
 export default class SnackStore {
     @observable snack: any = { 
         state: false,
-        message: ''
+        message: '',
+        class: ''
     }
 
     @computed get getMessage(): string {
         return this.snack.message;
+    }
+
+    @computed get getClass(): string {
+        return this.snack.class;
     }
 
     @computed get getState(): boolean {
@@ -19,8 +24,9 @@ export default class SnackStore {
         this.snack.message = '';
     }
 
-    @action openSnack(message: string): void {
+    @action openSnack(message: string, variant?: string): void {
         this.snack.message = message;
+        this.snack.class = variant;
         this.snack.state = true;
     }
 }

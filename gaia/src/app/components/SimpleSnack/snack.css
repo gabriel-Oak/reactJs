@@ -1,0 +1,9 @@
+.success .MuiSnackbarContent-root{
+    color: white;
+    background-color: #43a047;
+}
+
+.error .MuiSnackbarContent-root{
+    color: white;
+    background-color: #f44336;
+}

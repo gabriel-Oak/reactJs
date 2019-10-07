@@ -175,10 +175,10 @@ class Home extends React.Component<Props, State> {
   async submitRequest(promises: Array<Promise<any>>) {
     await Promise.all(promises)
     .then(
-      res => this.props.snackStore.openSnack('Sucesso au atualizar todos os dias')
+      res => this.props.snackStore.openSnack('Sucesso ao atualizar todos os dias', 'success')
     )
     .catch(
-      e => this.props.snackStore.openSnack('Ocorreu algum erro: ' + e)
+      e => this.props.snackStore.openSnack('Ocorreu algum erro: ' + e, 'success')
     )
     .finally(() => {
       this.setState({ loading: false });
