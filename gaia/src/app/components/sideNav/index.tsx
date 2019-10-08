@@ -49,7 +49,7 @@ class SideNav extends React.Component<Props, State> {
                     <TreeItem nodeId="0" label="Home" onClick={() => this.navigateTo('home')} />
                     <TreeItem nodeId="1" label="Administrativo">
                         <TreeItem nodeId="2" label="Alterar cardapio" onClick={() => this.navigateTo('cardapios')} />
-                        <TreeItem nodeId="3" label="Cadastro de usuário" onClick={() => this.navigateTo('usuario')} />
+                        <TreeItem nodeId="3" label="Cadastro de usuário" onClick={() => this.navigateTo('cadastrar-usuario')} />
                         <TreeItem nodeId="4" label="Pedidos de trocas" onClick={() => this.navigateTo('trocas')} />
                         <TreeItem nodeId="5" label="Sugestões e bugs" onClick={() => this.navigateTo('feedbacks')} />
                     </TreeItem>

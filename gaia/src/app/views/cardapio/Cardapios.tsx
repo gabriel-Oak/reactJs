@@ -30,6 +30,7 @@ class Cardapios extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    const title = 'Alterar cardapios';
 
     this.state = {
       loading: true,
@@ -37,8 +38,8 @@ class Cardapios extends React.Component<Props, State> {
     }
 
     this.getMenus();
-    setTitle('Alterar cardapios');
-    this.props.appStore.setTitle('Alterar cardapios');
+    setTitle(title);
+    this.props.appStore.setTitle(title);
     this.inputChange = this.inputChange.bind(this);
   }
 

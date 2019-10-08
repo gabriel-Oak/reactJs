@@ -1,0 +1,19 @@
+/* .NotFound { margin} */
+
+.NotFound-banner {
+    margin: auto;
+    font-size: 200px;
+    text-align: center;
+}
+
+.NotFound-center-button {
+    display: flex;
+}
+
+.NotFound-center-button button {
+    margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .NotFound-banner { font-size: 50vw; }
+}

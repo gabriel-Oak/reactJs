@@ -43,6 +43,10 @@
   background-color: rgb(87, 87, 87)!important;
 }
 
+button:not(.raized) {
+  box-shadow: none;
+}
+
 @media screen and (max-width: 600px) {
   .Center-container-Vertical {
     margin: 56px 0 0 0;

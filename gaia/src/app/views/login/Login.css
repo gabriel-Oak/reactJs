@@ -1,25 +1,25 @@
 .Login-deep {
-    overflow: hidden;
-    height: 100vh;
+  overflow: hidden;
+  height: 100vh;
 }
 
 .Login {
-    z-index: 1;
+  z-index: 1;
 }
 
 .Login-form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .Login-banner video {
-    width: 100%;
-    object-fit: cover;
-    opacity: .2;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.2;
 }
 
 @media screen and (max-width: 1446px) {
-    .Login-banner video {
-        height: 100vh;
-    }
+  .Login-banner video {
+    height: 100vh;
+  }
 }

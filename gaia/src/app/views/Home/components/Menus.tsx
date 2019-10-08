@@ -12,6 +12,7 @@ import Cardapio from '../../../shared/interfaces/menu.interface';
 import WeekTabs from '../../../shared/components/weekTabs/';
 
 import './Menus.css';
+import { Checkbox } from '@material-ui/core';
 
 interface Props {
   menuData: Array<Cardapio>,
@@ -91,6 +92,17 @@ class Menus extends React.Component<Props, State> {
                     <ListItem className="Home-Menus-ListItem">
                       <span>Sobremesa</span>
                       <span>{menu.sobremesa}</span>
+                    </ListItem>
+                    <ListItem className="Home-Menus-ListItem">
+                      <span>Não vou almoçar aqui</span>
+                      <span>
+                        <Checkbox 
+                          checked={menu.chosed === 'desistiu'}
+                          onClick={
+                            () => this.props.handleChange({target:{ name: String(key), value: 'desistiu' }})
+                          }
+                        />
+                      </span>
                     </ListItem>
                   </List>
                 </CardContent>

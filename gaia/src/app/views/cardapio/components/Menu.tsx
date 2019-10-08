@@ -131,12 +131,12 @@ class MenuItens extends React.Component<Props, State> {
   render(): ReactNode {
     return (
       <div hidden={this.props.hidden}>
-        <form className="Cardapios-menu-form" onSubmit={this.submitChange}>
+        <form className="form" onSubmit={this.submitChange}>
           <CardContent>
             <TextField
               required
               label="Prato Principal"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="pratoPrincipal"
               margin="normal"
               autoComplete="off"
@@ -149,7 +149,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="1ª Opção de troca"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="opcao1"
               margin="normal"
               autoComplete="off"
@@ -162,7 +162,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="2ª Opção de troca"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="opcao2"
               margin="normal"
               autoComplete="off"
@@ -175,7 +175,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="1ª Guarnição"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="guarnicao1"
               margin="normal"
               autoComplete="off"
@@ -188,7 +188,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="2ª Guarnição"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="guarnicao2"
               margin="normal"
               autoComplete="off"
@@ -201,7 +201,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="Salada"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="salada"
               margin="normal"
               autoComplete="off"
@@ -214,7 +214,7 @@ class MenuItens extends React.Component<Props, State> {
             <TextField
               required
               label="Salada"
-              className="Cardapio-form-field"
+              className="Gaia-form-field"
               name="sobremesa"
               margin="normal"
               autoComplete="off"
@@ -234,7 +234,7 @@ class MenuItens extends React.Component<Props, State> {
                 required
                 label="Data"
                 value={this.props.menu.data}
-                className="Cardapio-form-field"
+                className="Gaia-form-field"
                 onChange={this.handleDateChange}
                 error={this.getErrors('data')}
                 helperText={

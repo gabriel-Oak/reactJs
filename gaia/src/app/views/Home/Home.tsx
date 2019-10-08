@@ -39,6 +39,7 @@ class Home extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props)
+    const title = 'Home';
 
     this.state = {
       menus: [],
@@ -48,8 +49,8 @@ class Home extends React.Component<Props, State> {
 
     this.user = getUser();
 
-    this.props.appStore.setTitle('Home');
-    setTitle('Home');
+    this.props.appStore.setTitle(title);
+    setTitle(title);
 
     this.getMenus();
     this.anchorRef = React.createRef();

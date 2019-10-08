@@ -43,6 +43,7 @@ class Login extends React.Component<Props> {
 
   constructor(props: Props) {
     super(props)
+    const title = 'Login';
 
     this.state = {
       user: '',
@@ -60,7 +61,7 @@ class Login extends React.Component<Props> {
 
     if (isAuth()) this.redirect();
 
-    setTitle('Login');
+    setTitle(title);
     this.inputChange = this.inputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -99,11 +100,11 @@ class Login extends React.Component<Props> {
       .then((res: any) => {
 
         setUser(res.data);
-        this.props.snackStore.openSnack(`Bem vindo ${res.data.nome}`);
+        this.props.snackStore.openSnack(`Bem vindo ${res.data.nome}`, 'success');
         this.logged();
 
       })
-      .catch(e => this.props.snackStore.openSnack('Algo deu errado :/'))
+      .catch(e => this.props.snackStore.openSnack('Algo deu errado :/', 'error'))
       .finally(() => {
         this.setState({
           loading: false

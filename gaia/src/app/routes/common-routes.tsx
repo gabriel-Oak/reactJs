@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { Route, Switch, RouteProps } from 'react-router-dom';
+import { Route, Switch, RouteProps, Redirect } from 'react-router-dom';
 import { commonRoutes } from './routes';
-import NotFound from '../views/not-found/not-found';
-import AdminRoutes from './admin-routes';
 
 interface Props { }
 
@@ -17,7 +15,6 @@ class CommonRoutesModule extends React.Component {
   }
 
   render() {
-    const publicUrl = process.env.PUBLIC_URL;
 
     return (
       <Switch>
@@ -26,9 +23,8 @@ class CommonRoutesModule extends React.Component {
             <Route key={index} {...r} />
           ))
         }
-        
-        <AdminRoutes />
-        <Route path={`${publicUrl}/**`} component={NotFound} />
+
+        <Redirect to="not-found" />
       </Switch>
     );
   }

@@ -7,3 +7,21 @@
   max-width: 320px;
   padding: 4px 16px;
 }
+
+.form div.MuiCardContent-root {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Gaia-form-field {
+  width: 49%;
+}
+
+
+@media screen and (max-width: 600px) {
+  div.Gaia-form-field { 
+      width: 100%;
+  }
+}
